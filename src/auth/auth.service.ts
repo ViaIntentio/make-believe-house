@@ -1,38 +1,34 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { LoginDto } from './Validation/login.dto';
 import { RegisterDto } from './Validation/register.dto';
 import { CreateUserDto } from 'src/user/Validation/create-user.dto';
 import { AuthEntity } from './Database/auth.entity';
 
 @Injectable()
-export class AuthService {
+export class AuthService extends AuthEntity {
   private issuer = 'CFDC-auth-system';
   private audience = 'user';
-  constructor(
-    private readonly prisma: AuthEntity,
-    private readonly jwt: JwtService,
-  ) {}
+  constructor(private readonly jwt: JwtService) {
+    super();
+  }
 
   async login(login: LoginDto) {
-    const user = await this.prisma.findLogin(login);
+    const user = await this.findLogin(login);
     return this.createToken(user);
   }
 
   async register(register: RegisterDto) {
-    const id = null;
+    const user = await this.findLogin(register);
     const newRegisterU = new CreateUserDto();
-    await this.prisma.existsGym(id, register.email);
     newRegisterU.email = register.email;
     newRegisterU.password = register.password;
-    return this.prisma.createGym(newRegisterU);
+    return this.Register(newRegisterU);
   }
 
   async createToken(user: {
     id: string;
     email: string;
-    password: string;
     role: number;
     name: string;
     Cpf: string;

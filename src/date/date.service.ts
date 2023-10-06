@@ -1,26 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDateDto } from './Validation/create-date.dto';
 import { UpdateDateDto } from './Validation/update-date.dto';
+import { Date } from './Database/date.entity';
 
 @Injectable()
-export class DateService {
+export class DateService extends Date {
   create(data: CreateDateDto) {
-    return 'This action adds a new date';
+    return this.CreateDate(data);
   }
 
   findAll() {
-    return `This action returns all date`;
+    return this.GetAllDate();
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} date`;
+    return this.GetDateById(id);
   }
 
   update(id: string, data: UpdateDateDto) {
-    return `This action updates a #${id} date`;
+    return this.UpdateDate(id, data);
   }
 
   remove(id: string) {
-    return `This action removes a #${id} date`;
+    return this.DeleteDate(id);
   }
 }

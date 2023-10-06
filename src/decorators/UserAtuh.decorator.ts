@@ -8,11 +8,11 @@ export const UserAuth = createParamDecorator(
   (filterData: string, context: ExecutionContext) => {
     const request = context.switchToHttp().getRequest();
 
-    if (request.gym) {
+    if (request.usuario) {
       if (filterData) {
-        return request.gym[filterData];
+        return request.usuario[filterData];
       } else {
-        return request.gym;
+        return request.usuario;
       }
     } else {
       throw new ForbiddenException(

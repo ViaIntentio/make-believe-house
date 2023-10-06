@@ -1,5 +1,6 @@
 import { PrismaService } from "src/prisma/prisma.service";
 import { CreateDateDto } from "../Validation/create-date.dto";
+import { UpdateDateDto } from "../Validation/update-date.dto";
 
 export class Date extends PrismaService{
 
@@ -9,11 +10,11 @@ export class Date extends PrismaService{
         })
     }
 
-    ReadDate(){
+    GetAllDate(){
         return this.date.findMany();
     }
 
-    ReadDateById(id: string){
+    GetDateById(id: string){
         return this.date.findUnique({
             where:{
                 id: id,
@@ -21,7 +22,7 @@ export class Date extends PrismaService{
         })
     }
 
-    UpdateDate(id: string, data: CreateDateDto){
+    UpdateDate(id: string, data: UpdateDateDto){
         return this.date.update({
             where:{
                 id: id,

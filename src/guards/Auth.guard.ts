@@ -1,12 +1,12 @@
 import { CanActivate, Injectable, ExecutionContext } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from 'src/user/Database/user.entity';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly authService: AuthService,
-    private readonly prisma: PrismaService,
+    private readonly prisma: User,
   ) {}
 
   async canActivate(context: ExecutionContext) {
@@ -18,9 +18,9 @@ export class AuthGuard implements CanActivate {
         (authorization ?? '').split(' ')[1],
       );
 
-      request.token = data;
+      request.usuario = data;
 
-      request.gym = await this.prisma.findUniqGym(data.id);
+      request.usuario = await this.prisma.GetUserById(data.id);
 
       return true;
     } catch {
