@@ -1,6 +1,6 @@
 
-# Make Believe House
-Repository containing the source code for the website of the Make Believe House. The website was developed using [:TODO:] for the front-end and NEST.JS for the back-end.
+# Make Believe House BACKEND
+Repository containing the source code for the website of the Make Believe House. The website was developed using NEST.JS for the back-end.
 
 ## Contents
 - Technologies Used
@@ -20,11 +20,11 @@ The goal of this project is to provide a platform for renting rooms in a house t
 ## How to Use
 ### Installation
 - Clone the backend repository: git clone [make-believe-inn-backend](https://github.com/ViaIntentio/make-believe-inn-backend)
-- Navigate to the backend folder: cd make-believe-house/backend
+- Navigate to the backend folder: cd make-believe-inn-backend
 - Install dependencies: npm install
 
 Execution
-- Navigate to the backend folder: cd make-believe-house/backend
+- Navigate to the backend folder: cd make-believe-inn-backend 
 - Start the server: nest start
 
 # Contribution
