@@ -9,6 +9,7 @@ import { EmailModule } from './email/email.module';
 import { PrismaService } from './prisma/prisma.service';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
+import * as bcrypt from 'bcrypt';
 
 @Module({
   imports: [
@@ -35,7 +36,7 @@ export class AppModule implements OnModuleInit {
         data: {
           name: 'admin',
           email: 'admin@admin.com',
-          password: 'admin',
+          password: await bcrypt.hash('admin', 10),
           role: 2,
         },
       });

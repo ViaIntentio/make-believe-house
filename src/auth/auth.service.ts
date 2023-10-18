@@ -3,27 +3,26 @@ import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './Validation/login.dto';
 import { RegisterDto } from './Validation/register.dto';
 import { CreateUserDto } from 'src/user/Validation/create-user.dto';
-import { AuthEntity } from './Database/auth.entity';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
-export class AuthService extends AuthEntity {
+export class AuthService {
   private issuer = 'CFDC-auth-system';
   private audience = 'user';
-  constructor(private readonly jwt: JwtService) {
-    super();
-  }
+  
+  constructor(private readonly jwt: JwtService, private readonly prisma: PrismaService) {}
 
   async login(login: LoginDto) {
-    const user = await this.findLogin(login);
+    const user = await this.prisma.findLogin(login);
     return this.createToken(user);
   }
 
   async register(register: RegisterDto) {
-    const user = await this.findLogin(register);
+    const user = await this.prisma.findLogin(register);
     const newRegisterU = new CreateUserDto();
     newRegisterU.email = register.email;
     newRegisterU.password = register.password;
-    return this.Register(newRegisterU);
+    return this.prisma.Register(newRegisterU);
   }
 
   async createToken(user: {
